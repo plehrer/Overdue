@@ -21,6 +21,9 @@
 		2EBB0F7018303CF000F56516 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB0F5218303CF000F56516 /* UIKit.framework */; };
 		2EBB0F7818303CF000F56516 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EBB0F7618303CF000F56516 /* InfoPlist.strings */; };
 		2EBB0F7A18303CF000F56516 /* OverdueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB0F7918303CF000F56516 /* OverdueTests.m */; };
+		2EBB0F8518303E2400F56516 /* PLAddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB0F8418303E2400F56516 /* PLAddTaskViewController.m */; };
+		2EBB0F8818303E5400F56516 /* PLDetailTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB0F8718303E5400F56516 /* PLDetailTaskViewController.m */; };
+		2EBB0F8B18303E6C00F56516 /* PLEditTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB0F8A18303E6C00F56516 /* PLEditTaskViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,12 @@
 		2EBB0F7518303CF000F56516 /* OverdueTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OverdueTests-Info.plist"; sourceTree = "<group>"; };
 		2EBB0F7718303CF000F56516 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2EBB0F7918303CF000F56516 /* OverdueTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverdueTests.m; sourceTree = "<group>"; };
+		2EBB0F8318303E2400F56516 /* PLAddTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLAddTaskViewController.h; sourceTree = "<group>"; };
+		2EBB0F8418303E2400F56516 /* PLAddTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLAddTaskViewController.m; sourceTree = "<group>"; };
+		2EBB0F8618303E5400F56516 /* PLDetailTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLDetailTaskViewController.h; sourceTree = "<group>"; };
+		2EBB0F8718303E5400F56516 /* PLDetailTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLDetailTaskViewController.m; sourceTree = "<group>"; };
+		2EBB0F8918303E6C00F56516 /* PLEditTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLEditTaskViewController.h; sourceTree = "<group>"; };
+		2EBB0F8A18303E6C00F56516 /* PLEditTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLEditTaskViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +126,12 @@
 				2EBB0F6018303CF000F56516 /* Main.storyboard */,
 				2EBB0F6318303CF000F56516 /* PLViewController.h */,
 				2EBB0F6418303CF000F56516 /* PLViewController.m */,
+				2EBB0F8318303E2400F56516 /* PLAddTaskViewController.h */,
+				2EBB0F8418303E2400F56516 /* PLAddTaskViewController.m */,
+				2EBB0F8618303E5400F56516 /* PLDetailTaskViewController.h */,
+				2EBB0F8718303E5400F56516 /* PLDetailTaskViewController.m */,
+				2EBB0F8918303E6C00F56516 /* PLEditTaskViewController.h */,
+				2EBB0F8A18303E6C00F56516 /* PLEditTaskViewController.m */,
 				2EBB0F6618303CF000F56516 /* Images.xcassets */,
 				2EBB0F5518303CF000F56516 /* Supporting Files */,
 			);
@@ -251,8 +266,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EBB0F5F18303CF000F56516 /* PLAppDelegate.m in Sources */,
+				2EBB0F8B18303E6C00F56516 /* PLEditTaskViewController.m in Sources */,
 				2EBB0F6518303CF000F56516 /* PLViewController.m in Sources */,
+				2EBB0F8818303E5400F56516 /* PLDetailTaskViewController.m in Sources */,
 				2EBB0F5B18303CF000F56516 /* main.m in Sources */,
+				2EBB0F8518303E2400F56516 /* PLAddTaskViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
