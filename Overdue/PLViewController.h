@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PLAddTaskViewController.h"
 
-@interface PLViewController : UIViewController
+@interface PLViewController : UIViewController <PLAddTaskViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)reorderBarButtonItemPressed:(UIBarButtonItem *)sender;
