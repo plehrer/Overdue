@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface PLViewController : UIViewController
+
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)reorderBarButtonItemPressed:(UIBarButtonItem *)sender;
 - (IBAction)addTaskBarButtonItemPressed:(UIBarButtonItem *)sender;
+
+@property (strong, nonatomic) NSMutableArray *taskObjects;
 
 @end

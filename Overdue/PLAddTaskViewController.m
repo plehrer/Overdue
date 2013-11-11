@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+	
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,5 +40,14 @@
 }
 
 - (IBAction)cancelButtonPressed:(UIButton *)sender {
+}
+
+#pragma mark - Helper Method
+
+-(PLTaskObject *)getTaskObject
+{
+	NSDictionary  *taskDictionary = @{TASK_TITLE : self.textField.text, TASK_DESCRIPTION : self.textView.text, TASK_DATE : self.datePicker, TASK_COMPLETION : @NO};
+	PLTaskObject *taskObject = [[PLTaskObject alloc] initWithData:taskDictionary];
+	return taskObject;
 }
 @end

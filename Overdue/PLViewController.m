@@ -7,12 +7,23 @@
 //
 
 #import "PLViewController.h"
+#import "PLTaskObject.h"
 
 @interface PLViewController ()
 
 @end
 
 @implementation PLViewController
+
+#pragma mark - Lazy Instantiation
+-(NSMutableArray *)taskObjects {
+	if (!_taskObjects) {
+		_taskObjects = [[NSMutableArray alloc] init];
+	}
+	return _taskObjects;
+}
+
+#pragma mark -
 
 - (void)viewDidLoad
 {
@@ -25,6 +36,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - IBAction
 
 - (IBAction)reorderBarButtonItemPressed:(UIBarButtonItem *)sender {
 }

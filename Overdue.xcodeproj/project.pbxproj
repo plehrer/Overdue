@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E7F3AE318315FC900FF8B76 /* PLTaskObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F3AE218315FC900FF8B76 /* PLTaskObject.m */; };
 		2EBB0F4F18303CF000F56516 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB0F4E18303CF000F56516 /* Foundation.framework */; };
 		2EBB0F5118303CF000F56516 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB0F5018303CF000F56516 /* CoreGraphics.framework */; };
 		2EBB0F5318303CF000F56516 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB0F5218303CF000F56516 /* UIKit.framework */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E7F3AE118315FC900FF8B76 /* PLTaskObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTaskObject.h; sourceTree = "<group>"; };
+		2E7F3AE218315FC900FF8B76 /* PLTaskObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTaskObject.m; sourceTree = "<group>"; };
 		2EBB0F4B18303CF000F56516 /* Overdue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Overdue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EBB0F4E18303CF000F56516 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2EBB0F5018303CF000F56516 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -88,9 +91,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E7F3AE018315F2200FF8B76 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2E7F3AE118315FC900FF8B76 /* PLTaskObject.h */,
+				2E7F3AE218315FC900FF8B76 /* PLTaskObject.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		2EBB0F4218303CF000F56516 = {
 			isa = PBXGroup;
 			children = (
+				2E7F3AE018315F2200FF8B76 /* Model */,
 				2EBB0F5418303CF000F56516 /* Overdue */,
 				2EBB0F7318303CF000F56516 /* OverdueTests */,
 				2EBB0F4D18303CF000F56516 /* Frameworks */,
@@ -271,6 +284,7 @@
 				2EBB0F8818303E5400F56516 /* PLDetailTaskViewController.m in Sources */,
 				2EBB0F5B18303CF000F56516 /* main.m in Sources */,
 				2EBB0F8518303E2400F56516 /* PLAddTaskViewController.m in Sources */,
+				2E7F3AE318315FC900FF8B76 /* PLTaskObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +493,7 @@
 				2EBB0F7F18303CF000F56516 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2EBB0F8018303CF000F56516 /* Build configuration list for PBXNativeTarget "OverdueTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +502,7 @@
 				2EBB0F8218303CF000F56516 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
