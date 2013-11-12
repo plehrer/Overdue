@@ -29,6 +29,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+	
+	NSArray *myTaskObjectsAsPropertyLists = [[NSUserDefaults standardUserDefaults] arrayForKey:ADDED_TASK_OBJECTS_KEY];
+	for (NSDictionary *dictionary in myTaskObjectsAsPropertyLists) {
+		PLTaskObject *task = [self taskObjectForDictionary:dictionary];
+		[self.taskObjects addObject:task];
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,6 +88,12 @@
 {
 	NSDictionary *dictionary = @{TASK_TITLE : taskObject.title, TASK_DESCRIPTION : taskObject.description, TASK_DATE : taskObject.date, TASK_COMPLETION : @(taskObject.completion)};
 	return dictionary;
+}
+
+-(PLTaskObject *)taskObjectForDictionary:(NSDictionary *)dictionary
+{
+	PLTaskObject *task = [[PLTaskObject alloc] initWithData:dictionary];
+	return task;
 }
 
 @end
