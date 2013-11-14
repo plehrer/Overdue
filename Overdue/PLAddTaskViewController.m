@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+	self.textView.delegate = self;
 	
 }
 
@@ -36,10 +37,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+	if ([text isEqualToString:@"\n"]) {
+		[self.textView resignFirstResponder];
+		return NO;
+	}
+	else {
+		return YES;
+	}
+}
+
 - (IBAction)addTaskButtonPressed:(UIButton *)sender {
+	NSDictionary *dictionary = @{TASK_TITLE : self.textField.text, TASK_DESCRIPTION : self.textView.text, TASK_DATE : self.datePicker.date, TASK_COMPLETION : @(NO)};
+	PLTaskObject *taskObject = [[PLTaskObject alloc] initWithData:dictionary];
+	[self.delegate didAddTask:taskObject];
 }
 
 - (IBAction)cancelButtonPressed:(UIButton *)sender {
+	[self.delegate didCancel];
 }
 
 #pragma mark - Helper Method

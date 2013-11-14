@@ -35,6 +35,10 @@
 		PLTaskObject *task = [self taskObjectForDictionary:dictionary];
 		[self.taskObjects addObject:task];
 	}
+	
+	self.tableView.delegate = self;
+	self.tableView.dataSource = self;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,13 +50,43 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if ([sender isKindOfClass:[UIBarButtonItem class]]) {
-		if ([segue isKindOfClass:[PLAddTaskViewController class]]) {
+		if ([segue.destinationViewController isKindOfClass:[PLAddTaskViewController class]]) {
 			PLAddTaskViewController *addTaskVC = [[PLAddTaskViewController alloc] init];
 			addTaskVC = segue.destinationViewController;
 			addTaskVC.delegate = self;
 		}
 	}
 }
+
+#pragma mark - UITableViewDatasource Methods
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+	PLTaskObject *task = [self.taskObjects objectAtIndex:indexPath.row];
+	cell.textLabel.text = task.title;
+	// format date string and assign to cell detail
+	NSDate *date = task.date;
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:@"yyyy-MM-dd"];
+	NSString *stringFromDate = [formatter stringFromDate:date];
+	cell.detailTextLabel.text = stringFromDate;
+
+	return cell;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return [self.taskObjects count];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return 1;
+}
+
+
 
 #pragma mark - PLAddTaskViewController Delegate
 
@@ -63,6 +97,7 @@
 
 -(void)didAddTask:(PLTaskObject *)task
 {
+	NSLog(@"Got to didAddTask");
 	[self.taskObjects addObject:task];
 	NSMutableArray *taskObjectsAsPropertyLists = [[[NSUserDefaults standardUserDefaults] arrayForKey:ADDED_TASK_OBJECTS_KEY] mutableCopy];
 	if(!taskObjectsAsPropertyLists) taskObjectsAsPropertyLists = [[NSMutableArray alloc] init];
@@ -70,6 +105,7 @@
 	[[NSUserDefaults standardUserDefaults] setObject:taskObjectsAsPropertyLists forKey:ADDED_TASK_OBJECTS_KEY];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	
+	[self.tableView reloadData];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -79,6 +115,7 @@
 }
 
 - (IBAction)addTaskBarButtonItemPressed:(UIBarButtonItem *)sender {
+	[self performSegueWithIdentifier:@"toAddTaskViewController" sender: sender];
 }
 
 #pragma mark - Helper Methods
