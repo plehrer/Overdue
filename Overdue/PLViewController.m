@@ -105,7 +105,9 @@
 	[[NSUserDefaults standardUserDefaults] setObject:taskObjectsAsPropertyLists forKey:ADDED_TASK_OBJECTS_KEY];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	
+	// Fixes problem where added task not appearing without stopping and starting program.
 	[self.tableView reloadData];
+	
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
