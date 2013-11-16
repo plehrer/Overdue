@@ -30,6 +30,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 	
+	// retrieve stored tasks
 	NSArray *myTaskObjectsAsPropertyLists = [[NSUserDefaults standardUserDefaults] arrayForKey:ADDED_TASK_OBJECTS_KEY];
 	for (NSDictionary *dictionary in myTaskObjectsAsPropertyLists) {
 		PLTaskObject *task = [self taskObjectForDictionary:dictionary];
@@ -72,7 +73,17 @@
 	[formatter setDateFormat:@"yyyy-MM-dd"];
 	NSString *stringFromDate = [formatter stringFromDate:date];
 	cell.detailTextLabel.text = stringFromDate;
-
+	
+	// check if task is overdue
+	BOOL overdue = [self isDateGreaterThanDate:[NSDate date] and:task.date];
+	if (!overdue && !task.completion) {
+		cell.backgroundColor = [UIColor yellowColor];
+	}
+	else if (overdue && !task.completion) {
+		cell.backgroundColor = [UIColor redColor];
+	}
+	else cell.backgroundColor = [UIColor greenColor];
+	
 	return cell;
 }
 
@@ -86,7 +97,17 @@
 	return 1;
 }
 
+#pragma mark - UITableView Delegate methods
 
+// When the user taps on a row
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	// retrieve the task from the task objects array
+	PLTaskObject *task = self.taskObjects[indexPath.row];
+	
+	[self updateCompletionOfTask:task forIndexPath:indexPath];
+	
+}
 
 #pragma mark - PLAddTaskViewController Delegate
 
@@ -97,7 +118,6 @@
 
 -(void)didAddTask:(PLTaskObject *)task
 {
-	NSLog(@"Got to didAddTask");
 	[self.taskObjects addObject:task];
 	NSMutableArray *taskObjectsAsPropertyLists = [[[NSUserDefaults standardUserDefaults] arrayForKey:ADDED_TASK_OBJECTS_KEY] mutableCopy];
 	if(!taskObjectsAsPropertyLists) taskObjectsAsPropertyLists = [[NSMutableArray alloc] init];
@@ -133,6 +153,41 @@
 {
 	PLTaskObject *task = [[PLTaskObject alloc] initWithData:dictionary];
 	return task;
+}
+
+- (BOOL)isDateGreaterThanDate:(NSDate*)date and:(NSDate*)toDate {
+	if ([date timeIntervalSince1970] > [toDate timeIntervalSince1970]) {
+		return YES;
+	}
+	else return NO;
+}
+
+// Mark the task object's completion property to YES and store it, then reload the table view.
+-(void)updateCompletionOfTask:(PLTaskObject *)task forIndexPath:(NSIndexPath *)indexPath {
+		
+	// Retrieve property lists array from NSUserDefaults
+	NSMutableArray *taskObjectsAsPropertyLists = [[[NSUserDefaults standardUserDefaults] arrayForKey:ADDED_TASK_OBJECTS_KEY] mutableCopy];
+	
+	if (!taskObjectsAsPropertyLists) {
+		taskObjectsAsPropertyLists = [[NSMutableArray alloc] init];
+	}
+	// remove the task object dictionary
+	[taskObjectsAsPropertyLists removeObjectAtIndex:indexPath.row];
+	
+	// update the task object to show that it has been completed
+	if (task.completion == YES) task.completion = NO;
+	else task.completion = YES;
+	
+	// convert it to dictionary format and add re insert it back the property lists array at the speficied index
+	[taskObjectsAsPropertyLists insertObject:[self taskObjectAsAPropertyList:task] atIndex:indexPath.row];
+	
+
+	// save it
+	[[NSUserDefaults standardUserDefaults] setObject:taskObjectsAsPropertyLists forKey:ADDED_TASK_OBJECTS_KEY];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+
+	[self.tableView reloadData];
+	
 }
 
 @end
