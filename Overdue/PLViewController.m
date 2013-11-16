@@ -117,17 +117,19 @@
 	
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[self.taskObjects removeObjectAtIndex:indexPath.row];
+		
 		NSMutableArray *newSavedTaskObjects = [[NSMutableArray alloc] init];
+		
 		for (PLTaskObject *task in self.taskObjects) {
 			[newSavedTaskObjects addObject:[self taskObjectAsAPropertyList:task]];
 		}
+		
 		[[NSUserDefaults standardUserDefaults] setObject:newSavedTaskObjects forKey:ADDED_TASK_OBJECTS_KEY];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-	} else if (editingStyle == UITableViewCellEditingStyleInsert) {
 		
+		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
-	
+
 }
 
 #pragma mark - PLAddTaskViewController Delegate
