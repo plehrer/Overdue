@@ -27,6 +27,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+	
+	self.titleLabel.text = self.task.title;
+	self.detailLabel.text = self.task.description;
+	
+	NSDate *date = self.task.date;
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:@"yyyy-MM-dd"];
+	NSString *stringFromDate = [formatter stringFromDate:date];
+	
+	self.dateLabel.text = stringFromDate;
+	
 }
 
 - (void)didReceiveMemoryWarning

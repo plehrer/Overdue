@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PLTaskObject.h"
 
 @interface PLDetailTaskViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *detailLabel;
+
+@property (strong, nonatomic) PLTaskObject *task;
 
 - (IBAction)editeditBarButtonItemPressed:(UIBarButtonItem *)sender;
 

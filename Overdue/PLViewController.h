@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PLAddTaskViewController.h"
+#import "PLDetailTaskViewController.h"
 
 @interface PLViewController : UIViewController <PLAddTaskViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 

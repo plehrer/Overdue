@@ -7,6 +7,7 @@
 //
 
 #import "PLViewController.h"
+
 #import "PLTaskObject.h"
 
 @interface PLViewController ()
@@ -50,11 +51,21 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+	// If add task button is pressed
 	if ([sender isKindOfClass:[UIBarButtonItem class]]) {
 		if ([segue.destinationViewController isKindOfClass:[PLAddTaskViewController class]]) {
 			PLAddTaskViewController *addTaskVC = [[PLAddTaskViewController alloc] init];
 			addTaskVC = segue.destinationViewController;
 			addTaskVC.delegate = self;
+		}
+	}
+	
+	// If accessory button is pressed
+	if ([sender isKindOfClass:[NSIndexPath class]]) {
+		if ([segue.destinationViewController isKindOfClass:[PLDetailTaskViewController class]]) {
+			PLDetailTaskViewController *detailVC = segue.destinationViewController;
+			NSIndexPath *indexPath = sender;
+			detailVC.task = self.taskObjects[indexPath.row];
 		}
 	}
 }
@@ -130,6 +141,10 @@
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 
+}
+
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	[self performSegueWithIdentifier:@"toDetailViewControllerSegue" sender:indexPath];
 }
 
 #pragma mark - PLAddTaskViewController Delegate
