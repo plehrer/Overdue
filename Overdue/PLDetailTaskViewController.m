@@ -40,12 +40,33 @@
 	
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+		if ([segue.destinationViewController isKindOfClass:[PLEditTaskViewController class]]) {
+			PLEditTaskViewController *editTaskVC = segue.destinationViewController;
+			editTaskVC.task = self.task;
+			editTaskVC.delegate = self;
+		}
+	}
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - IBAction
+
 - (IBAction)editeditBarButtonItemPressed:(UIBarButtonItem *)sender {
+	[self performSegueWithIdentifier:@"toEditTaskViewController" sender:sender];
+}
+
+#pragma mark - PLEditTaskViewController Delegate Method
+
+- (void)didSaveTaskEdit:(PLTaskObject *)task {
+	self.task = task;
+	[self viewDidLoad];
+	[self.delegate didSaveTaskDetail:task atIndex:self.index];
 }
 @end

@@ -66,6 +66,8 @@
 			PLDetailTaskViewController *detailVC = segue.destinationViewController;
 			NSIndexPath *indexPath = sender;
 			detailVC.task = self.taskObjects[indexPath.row];
+			detailVC.index = indexPath.row;
+			detailVC.delegate = self;
 		}
 	}
 }
@@ -167,6 +169,27 @@
 	[self.tableView reloadData];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - PLDetailTaskViewController Delegate Method
+
+-(void)didSaveTaskDetail:(PLTaskObject *)task atIndex:(NSUInteger)index{
+	
+	[self.taskObjects replaceObjectAtIndex:index withObject:task];
+	
+	NSMutableArray *newSavedTaskObjects = [[NSMutableArray alloc] init];
+	
+	for (PLTaskObject *task in self.taskObjects) {
+		[newSavedTaskObjects addObject:[self taskObjectAsAPropertyList:task]];
+	}
+	
+	[[NSUserDefaults standardUserDefaults] setObject:newSavedTaskObjects forKey:ADDED_TASK_OBJECTS_KEY];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	
+	
+	[self.tableView reloadData];
+	
+	
 }
 
 #pragma mark - IBAction

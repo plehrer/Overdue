@@ -36,6 +36,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - UITexViewDelegate Methods
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
@@ -47,6 +48,8 @@
 		return YES;
 	}
 }
+
+#pragma mark - IBAction
 
 - (IBAction)addTaskButtonPressed:(UIButton *)sender {
 	NSDictionary *dictionary = @{TASK_TITLE : self.textField.text, TASK_DESCRIPTION : self.textView.text, TASK_DATE : self.datePicker.date, TASK_COMPLETION : @(NO)};
