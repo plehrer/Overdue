@@ -149,6 +149,26 @@
 	[self performSegueWithIdentifier:@"toDetailViewControllerSegue" sender:indexPath];
 }
 
+//*******************************************************************************************
+// Return yes to make reorder icon appear for each cell
+//*******************************************************************************************
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+	return YES;
+}
+
+//*******************************************************************************************
+// Manage reorder of cells
+//*******************************************************************************************
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+	
+	PLTaskObject *task = self.taskObjects[sourceIndexPath.row];
+	[self.taskObjects removeObjectAtIndex:sourceIndexPath.row];
+	[self.taskObjects insertObject:task atIndex:destinationIndexPath.row];
+
+	[self saveTasks];
+	
+}
+
 #pragma mark - PLAddTaskViewController Delegate
 
 -(void)didCancel
@@ -176,25 +196,21 @@
 -(void)didSaveTaskDetail:(PLTaskObject *)task atIndex:(NSUInteger)index{
 	
 	[self.taskObjects replaceObjectAtIndex:index withObject:task];
-	
-	NSMutableArray *newSavedTaskObjects = [[NSMutableArray alloc] init];
-	
-	for (PLTaskObject *task in self.taskObjects) {
-		[newSavedTaskObjects addObject:[self taskObjectAsAPropertyList:task]];
-	}
-	
-	[[NSUserDefaults standardUserDefaults] setObject:newSavedTaskObjects forKey:ADDED_TASK_OBJECTS_KEY];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-	
+	[self saveTasks];
 	
 	[self.tableView reloadData];
-	
-	
 }
 
 #pragma mark - IBAction
 
 - (IBAction)reorderBarButtonItemPressed:(UIBarButtonItem *)sender {
+	if (self.tableView.editing == NO) {
+		[self.tableView setEditing:YES animated:YES];
+		
+		NSLog(@"set editing on.");
+	}
+	else {[self.tableView setEditing:NO animated:YES]; NSLog(@"set editing off.");}
+	
 }
 
 - (IBAction)addTaskBarButtonItemPressed:(UIBarButtonItem *)sender {
@@ -248,6 +264,20 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];
 
 	[self.tableView reloadData];
+	
+}
+
+// Save the tasks in a new mutable array as property list (in Dictionary format) objects.
+// Calls taskObjectAsPropertyList
+- (void)saveTasks {
+	NSMutableArray *newSavedTaskObjects = [[NSMutableArray alloc] init];
+	
+	for (PLTaskObject *task in self.taskObjects) {
+		[newSavedTaskObjects addObject:[self taskObjectAsAPropertyList:task]];
+	}
+	
+	[[NSUserDefaults standardUserDefaults] setObject:newSavedTaskObjects forKey:ADDED_TASK_OBJECTS_KEY];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	
 }
 

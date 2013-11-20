@@ -17,7 +17,7 @@
 
 @end
 
-@interface PLAddTaskViewController : UIViewController <UITextViewDelegate>
+@interface PLAddTaskViewController : UIViewController <UITextViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) IBOutlet UITextView *textView;

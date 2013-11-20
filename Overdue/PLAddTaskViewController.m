@@ -28,6 +28,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 	self.textView.delegate = self;
+	self.textField.delegate = self;
 	
 }
 
@@ -36,6 +37,21 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - UITextFieldDelegate Methods
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+	if ([string isEqualToString:@"\n"]) {
+		[self.textField resignFirstResponder];
+		return NO;
+	}
+	else {
+		return YES;
+	}
+}
+
+
 #pragma mark - UITexViewDelegate Methods
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
